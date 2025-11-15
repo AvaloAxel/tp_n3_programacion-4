@@ -1,15 +1,14 @@
 import api from './api'
 
-// Obtener todos los turnos
-export const getTurnos = () => api.get('/turnos/').then(r=>r.data)
-// Obtener un turno por id
-export const getTurno = (id) => api.get(`/turnos/${id}`).then(r=>r.data)
-// Crear un turno
-export const createTurno = (data) => api.post('/turnos/', data).then(r=>r.data)
-// Actualizar un turno
-export const updateTurno = (id, data) => api.put(`/turnos/${id}`, data).then(r=>r.data)
-// Eliminar un turno
-export const deleteTurno = (id) => api.delete(`/turnos/${id}`)
+export const getTurnos = (filters = {}) => {
+  const params = new URLSearchParams()
+  if (filters.paciente_id) params.append('paciente_id', filters.paciente_id)
+  if (filters.medico_id) params.append('medico_id', filters.medico_id)
+  const qs = params.toString()
+  const path = qs ? `/turnos?${qs}` : '/turnos'
+  return api.get(path)
+}
 
-// Reservar turno mediante procedimiento almacenado
-export const reservarTurno = (data) => api.post('/turnos/reservar', data).then(r=>r.data)
+export const createTurno = (data) => api.post('/turnos', data)
+export const updateTurno = (id, data) => api.put(`/turnos/${id}`, data)
+export const deleteTurno = (id) => api.delete(`/turnos/${id}`)

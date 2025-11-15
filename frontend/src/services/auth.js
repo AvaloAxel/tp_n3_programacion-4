@@ -1,24 +1,12 @@
 import api from './api'
 
-// Registro de usuario
-export const register = async (data) => {
-  const res = await api.post('/auth/register', data)
-  return res.data
+// Registro
+export async function register(data) {
+  return api.post('/auth/register', data)
 }
 
-// Inicio de sesión
-export const login = async (data) => {
-  const res = await api.post('/auth/login', data)
-  if (res.data && res.data.token) {
-    localStorage.setItem('token', res.data.token)
-  }
-  return res.data
+// Login
+export async function loginRequest(data) {
+  // backend solo devuelve { token }, si luego querés puedes pedir /me
+  return api.post('/auth/login', data)
 }
-
-// Cerrar sesión
-export const logout = () => {
-  localStorage.removeItem('token')
-}
-
-// Obtener token actual
-export const getToken = () => localStorage.getItem('token')

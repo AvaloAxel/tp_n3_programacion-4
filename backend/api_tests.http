@@ -1,24 +1,35 @@
-### Auth
+@url=http://localhost:4000/
+
+
 ### Register
 POST http://localhost:4000/api/auth/register
 Content-Type: application/json
 
 {
-  "nombre":"Test User",
-  "email":"test@example.com",
-  "password":"secret123"
+  "nombre": "est User",
+  "email": "est@example.com",
+  "password": "secret123"
 }
 
-### Login
+
+###Login
+
+# @name login
+
 POST http://localhost:4000/api/auth/login
 Content-Type: application/json
 
 {
-  "email":"test@example.com",
-  "password":"secret123"
+  "nombre": "Test User",
+  "email": "est@example.com",
+  "password": "secret123"
 }
 
-### Protected: create paciente (replace {{token}})
+###
+
+@token = {{login.response.body.token}}
+
+### Crear paciente (protegido)
 POST http://localhost:4000/api/pacientes
 Authorization: Bearer {{token}}
 Content-Type: application/json
@@ -26,11 +37,11 @@ Content-Type: application/json
 {
   "nombre":"Juan",
   "apellido":"Perez",
-  "dni":"12345678",
+  "dni":"2345678",
   "fecha_nacimiento":"1990-01-01",
   "obra_social":"OSDE"
 }
 
-### Get pacientes
+### Obtener pacientes
 GET http://localhost:4000/api/pacientes
 Authorization: Bearer {{token}}
